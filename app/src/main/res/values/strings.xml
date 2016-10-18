@@ -3,4 +3,10 @@
     <string name="editTextNome">Nome do Aluno</string>
     <string name="buttonAddAluno">Adicionar Aluno</string>
     <string name="erroAddAluno">Insira um nome válido</string>
+    <string name="textFieldNome">Nome</string>
+    <string name="textFieldTelefone">Telefone</string>
+    <string name="textFieldSite">Site</string>
+    <string name="textFieldEmail">E-mail</string>
+    <string name="textFieldEndereco">Endereço</string>
+    <string name="textFieldNota">Nota</string>
 </resources>

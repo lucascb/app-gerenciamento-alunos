@@ -2,7 +2,9 @@ package lucascb.appaluno;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends Activity {
+    // Constantes
+    private final String TAG = "CADASTRO_ALUNO";
+    private final String ALUNOS_KEY = "LISTA";
+    // Atributos da tela
     private EditText editTextNome;
     private Button buttonAddAluno;
     private ListView listViewAlunos;
@@ -31,7 +37,37 @@ public class MainActivity extends Activity {
         // Cria a lista de alunos
         this.listaAlunos = new ArrayList<>();
         this.adapter = new ArrayAdapter<>(this, adapterLayout, listaAlunos);
-        listViewAlunos.setAdapter(this.adapter);
+        this.listViewAlunos.setAdapter(this.adapter);
+
+        this.listViewAlunos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(MainActivity.this, "Aluno: " + listaAlunos.get(position), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        this.listViewAlunos.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+            Toast.makeText(MainActivity.this, "Aluno: " + listaAlunos.get(position) + "[clique longo]",
+                    Toast.LENGTH_LONG).show();
+                return true; // Nao executa o clique simples
+            }
+        });
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putStringArrayList(ALUNOS_KEY, (ArrayList<String>) this.listaAlunos);
+        super.onSaveInstanceState(outState);
+        Log.i(TAG, "onSaveInstanceState(): " + listaAlunos);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        this.listaAlunos = savedInstanceState.getStringArrayList(ALUNOS_KEY);
+        Log.i(TAG, "onSaveRestoreState(): " + this.listaAlunos);
     }
 
     public void onClickAddAluno(View view) {

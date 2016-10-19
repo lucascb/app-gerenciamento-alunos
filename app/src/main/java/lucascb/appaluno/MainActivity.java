@@ -1,8 +1,12 @@
 package lucascb.appaluno;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -82,6 +86,26 @@ public class MainActivity extends Activity {
         else {
             // Senao sinaliza um erro
             Toast.makeText(MainActivity.this, R.string.erroAddAluno, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    /* Metodos relacionados ao MENU */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = this.getMenuInflater();
+        inflater.inflate(R.menu.menu_principal, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_novo:
+                Intent intent = new Intent(MainActivity.this, CadastroActivity.class);
+                this.startActivity(intent);
+                return false;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }

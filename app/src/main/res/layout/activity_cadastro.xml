@@ -105,5 +105,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/seekBar" />
+
+        <Button
+            android:text="@string/buttonCadastrar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonCadastrar" />
     </LinearLayout>
 </RelativeLayout>

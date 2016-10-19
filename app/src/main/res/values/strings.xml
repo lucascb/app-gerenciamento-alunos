@@ -1,12 +1,22 @@
 <resources>
     <string name="app_name">AppAluno</string>
+    <!-- Activity listar alunos -->
     <string name="editTextNome">Nome do Aluno</string>
     <string name="buttonAddAluno">Adicionar Aluno</string>
     <string name="erroAddAluno">Insira um nome válido</string>
+    <!-- Activity cadastro -->
     <string name="textFieldNome">Nome</string>
     <string name="textFieldTelefone">Telefone</string>
     <string name="textFieldSite">Site</string>
     <string name="textFieldEmail">E-mail</string>
     <string name="textFieldEndereco">Endereço</string>
     <string name="textFieldNota">Nota</string>
+    <string name="buttonCadastrar">Cadastrar</string>
+    <!-- Itens do menu -->
+    <string name="novo">Novo</string>
+    <string name="mapa">Mapa</string>
+    <string name="mais_opcoes">Mais opções</string>
+    <string name="sincronizar">Sincronizar</string>
+    <string name="provas">Provas</string>
+    <string name="preferencias">Preferências</string>
 </resources>

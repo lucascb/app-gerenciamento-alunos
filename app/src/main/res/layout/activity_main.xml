@@ -17,22 +17,6 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
-            android:id="@+id/editTextNome"
-            android:text="@string/editTextNome"
-            android:textIsSelectable="false" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/buttonAddAluno"
-            android:text="@string/buttonAddAluno"
-            android:onClick="onClickAddAluno" />
-
         <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"

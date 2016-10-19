@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
-            android:id="@+id/editText"
+            android:id="@+id/editTextNome"
             android:singleLine="false" />
 
         <TextView
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
-            android:id="@+id/editText2" />
+            android:id="@+id/editTextTelefone" />
 
         <TextView
             android:layout_width="match_parent"
@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
-            android:id="@+id/editText3" />
+            android:id="@+id/editTextSite" />
 
         <TextView
             android:text="@string/textFieldEmail"
@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
-            android:id="@+id/editText4" />
+            android:id="@+id/editTextEmail" />
 
         <TextView
             android:text="@string/textFieldEndereco"
@@ -92,7 +92,7 @@
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
-            android:id="@+id/editText5" />
+            android:id="@+id/editTextEndereco" />
 
         <TextView
             android:text="@string/textFieldNota"

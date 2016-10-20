@@ -1,6 +1,9 @@
 package lucascb.appaluno;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 
 /**
@@ -14,6 +17,7 @@ public class CadastroHelper {
     private EditText editTextEmail;
     private EditText editTextEndereco;
     private SeekBar seekBarNota;
+    private ImageView imageViewFoto;
     private Aluno aluno;
 
     public CadastroHelper(CadastroActivity activity) {
@@ -23,6 +27,7 @@ public class CadastroHelper {
         this.editTextEmail = (EditText) activity.findViewById(R.id.editTextEmail);
         this.editTextEndereco = (EditText) activity.findViewById(R.id.editTextEndereco);
         this.seekBarNota = (SeekBar) activity.findViewById(R.id.seekBarNota);
+        this.imageViewFoto = (ImageView) activity.findViewById(R.id.imageViewFoto);
 
         this.aluno = new Aluno();
     }
@@ -45,8 +50,24 @@ public class CadastroHelper {
         editTextEmail.setText(aluno.getEmail());
         editTextEndereco.setText(aluno.getEndereco());
         seekBarNota.setProgress(aluno.getNota());
+        if (aluno.getFoto() != null) {
+            this.carregarFoto(aluno.getFoto());
+        }
 
         this.aluno = aluno;
+    }
+
+    public void carregarFoto(String localFoto) {
+        Bitmap imagemFoto = BitmapFactory.decodeFile(localFoto);
+
+        Bitmap imagemFotoReduzida = Bitmap.createScaledBitmap(imagemFoto, 100, 100, true);
+        aluno.setFoto(localFoto);
+
+        this.imageViewFoto.setImageBitmap(imagemFotoReduzida);
+    }
+
+    public ImageView getFoto() {
+        return this.imageViewFoto;
     }
 
 }

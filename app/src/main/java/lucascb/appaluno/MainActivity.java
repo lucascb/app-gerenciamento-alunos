@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -135,8 +136,9 @@ public class MainActivity extends Activity {
                 this.excluirAluno();
                 break;
             case R.id.menu_ligar:
-                intent = new Intent(Intent.ACTION_CALL);
+                intent = new Intent(Intent.ACTION_DIAL);
                 intent.setData(Uri.parse("tel:" + alunoSelecionado.getTelefone()));
+                ActivityCompat.requestPermissions(MainActivity.this, new String[] { Manifest.permission.CALL_PHONE }, 3);
                 // Checa se o android possui permissão
                 permissionCheck = ContextCompat.checkSelfPermission(MainActivity.this,
                         Manifest.permission.CALL_PHONE);
@@ -148,6 +150,7 @@ public class MainActivity extends Activity {
                 intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("sms:" + alunoSelecionado.getTelefone()));
                 intent.putExtra("sms_body", "Mensagem de boas vindas :)");
+                ActivityCompat.requestPermissions(MainActivity.this, new String[] { Manifest.permission.SEND_SMS }, 3);
                 // Checa se o android possui permissão
                 permissionCheck = ContextCompat.checkSelfPermission(MainActivity.this,
                         Manifest.permission.SEND_SMS);
@@ -157,6 +160,7 @@ public class MainActivity extends Activity {
                 break;
             case R.id.menu_mapa:
                 intent = new Intent(Intent.ACTION_VIEW);
+                intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
                 intent.setData(Uri.parse("geo:0,0?z=14&q" + alunoSelecionado.getEndereco()));
                 startActivity(intent);
                 break;

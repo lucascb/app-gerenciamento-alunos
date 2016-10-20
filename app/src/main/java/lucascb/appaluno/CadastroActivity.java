@@ -21,6 +21,11 @@ public class CadastroActivity extends Activity {
 
         this.helper = new CadastroHelper(this);
 
+        final Aluno alunoParaSerAlterado = (Aluno) getIntent().getSerializableExtra("ALUNO_SELECIONADO");
+        if (alunoParaSerAlterado != null) {
+            helper.setAluno(alunoParaSerAlterado);
+        }
+
         this.botao = (Button) this.findViewById(R.id.buttonCadastrar);
         this.botao.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -28,14 +33,17 @@ public class CadastroActivity extends Activity {
                 Aluno aluno = helper.getAluno();
 
                 AlunoDAO dao = new AlunoDAO(CadastroActivity.this);
-                dao.cadastrarAluno(aluno);
+                if (alunoParaSerAlterado == null) {
+                    dao.cadastrarAluno(aluno);
+                }
+                else {
+                    dao.alterarAluno(aluno);
+                }
                 dao.close();
 
                 finish();
             }
         });
-
-
     }
 
 }

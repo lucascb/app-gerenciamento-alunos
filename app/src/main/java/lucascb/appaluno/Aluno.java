@@ -1,24 +1,31 @@
 package lucascb.appaluno;
 
+import java.io.Serializable;
+
 /**
  * Created by lucas on 19/10/16.
  */
 
-public class Aluno {
-    private long id;
+public class Aluno implements Serializable {
+    private int id;
     private String nome;
     private String telefone;
     private String endereco;
     private String site;
     private String email;
     private String foto;
-    private Double nota;
+    private int nota;
 
-    public long getId() {
+    @Override
+    public String toString() {
+        return this.nome;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -70,11 +77,11 @@ public class Aluno {
         this.foto = foto;
     }
 
-    public Double getNota() {
+    public int getNota() {
         return nota;
     }
 
-    public void setNota(Double nota) {
+    public void setNota(int nota) {
         this.nota = nota;
     }
 

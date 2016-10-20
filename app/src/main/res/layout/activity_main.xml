@@ -10,16 +10,9 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="lucascb.appaluno.MainActivity">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true">
+        android:id="@+id/listViewAlunos" />
 
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/listViewAlunos" />
-    </LinearLayout>
 </RelativeLayout>

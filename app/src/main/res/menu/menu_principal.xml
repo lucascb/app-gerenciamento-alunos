@@ -16,15 +16,15 @@
         android:title="@string/mais_opcoes">
         <menu>
             <item
-                android:id="@+id/menu_enviar_alunos"
+                android:id="@+id/menu_enviar"
                 android:icon="@drawable/ic_enviar"
                 android:showAsAction="always"
-                android:title="@string/sincronizar"/>
+                android:title="@string/enviar"/>
             <item
-                android:id="@+id/menu_receber_provas"
+                android:id="@+id/menu_sincronizar"
                 android:icon="@drawable/ic_receber"
                 android:showAsAction="always"
-                android:title="@string/provas"/>
+                android:title="@string/sincronizar"/>
             <item
                 android:id="@+id/menu_preferencias"
                 android:icon="@drawable/ic_preferencias"

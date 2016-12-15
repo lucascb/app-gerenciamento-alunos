@@ -23,8 +23,18 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends Activity {
     // Constantes
@@ -34,8 +44,9 @@ public class MainActivity extends Activity {
     private ListView listViewAlunos;
     private List<Aluno> listaAlunos;
     private ArrayAdapter<Aluno> adapter;
-
     private Aluno alunoSelecionado = null;
+    // URL da API
+    public static final String BASE_URL = "http://localhost:8080/CM/webresources/aluno/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +126,70 @@ public class MainActivity extends Activity {
                 Intent intent = new Intent(MainActivity.this, CadastroActivity.class);
                 this.startActivity(intent);
                 return false;
+            case R.id.menu_enviar:
+                Call<ResponseBody> callPost = AlunoAPI.getAPI().postAlunos(listaAlunos);
+                callPost.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (response.isSuccessful()) {
+                            int statusCode = response.code();
+                            ResponseBody r = response.body();
+                            Toast.makeText(MainActivity.this, "Usuarios enviados com sucesso",
+                                    Toast.LENGTH_LONG).show();
+                        } else {
+                            try {
+                                Toast.makeText(MainActivity.this, response.errorBody().string().toString(),
+                                        Toast.LENGTH_LONG).show();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        t.printStackTrace();
+                        // Log error here since request failed
+                        Toast.makeText(MainActivity.this, "Falha ao inserir os dados na API",
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+                return false;
+            case R.id.menu_sincronizar:
+                Call<List<Aluno>> callGet = AlunoAPI.getAPI().getAlunos();
+                callGet.enqueue(new Callback<List<Aluno>>() {
+                    @Override
+                    public void onResponse(Call<List<Aluno>> call, Response<List<Aluno>> response) {
+                        if (response.isSuccessful()) {
+                            AlunoDAO dao = new AlunoDAO(MainActivity.this);
+                            int statusCode = response.code();
+                            List<Aluno> lista = response.body();
+                            for (Aluno a : lista) {
+                                dao.cadastrarAluno(a);
+                            }
+                            dao.close();
+                            carregarLista();
+                            Toast.makeText(MainActivity.this, listaAlunos.toString(),
+                                    Toast.LENGTH_LONG).show();
+                        } else {
+                            try {
+                                Toast.makeText(MainActivity.this, response.errorBody().string().toString(),
+                                        Toast.LENGTH_LONG).show();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Aluno>> call, Throwable t) {
+                        // Log error here since request failed
+                        t.printStackTrace();
+                        Toast.makeText(MainActivity.this, "Falha ao recuperar os dados da API",
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+                return false;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -138,7 +213,9 @@ public class MainActivity extends Activity {
             case R.id.menu_ligar:
                 intent = new Intent(Intent.ACTION_DIAL);
                 intent.setData(Uri.parse("tel:" + alunoSelecionado.getTelefone()));
-                ActivityCompat.requestPermissions(MainActivity.this, new String[] { Manifest.permission.CALL_PHONE }, 3);
+                ActivityCompat.requestPermissions(MainActivity.this, new String[] {
+                        Manifest.permission.CALL_PHONE
+                }, 3);
                 // Checa se o android possui permissão
                 permissionCheck = ContextCompat.checkSelfPermission(MainActivity.this,
                         Manifest.permission.CALL_PHONE);
@@ -150,7 +227,9 @@ public class MainActivity extends Activity {
                 intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("sms:" + alunoSelecionado.getTelefone()));
                 intent.putExtra("sms_body", "Mensagem de boas vindas :)");
-                ActivityCompat.requestPermissions(MainActivity.this, new String[] { Manifest.permission.SEND_SMS }, 3);
+                ActivityCompat.requestPermissions(MainActivity.this, new String[] {
+                        Manifest.permission.SEND_SMS
+                }, 3);
                 // Checa se o android possui permissão
                 permissionCheck = ContextCompat.checkSelfPermission(MainActivity.this,
                         Manifest.permission.SEND_SMS);
@@ -160,7 +239,8 @@ public class MainActivity extends Activity {
                 break;
             case R.id.menu_mapa:
                 intent = new Intent(Intent.ACTION_VIEW);
-                intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
+                intent.setClassName("com.google.android.apps.maps",
+                                    "com.google.android.maps.MapsActivity");
                 intent.setData(Uri.parse("geo:0,0?z=14&q" + alunoSelecionado.getEndereco()));
                 startActivity(intent);
                 break;

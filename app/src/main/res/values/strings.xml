@@ -16,8 +16,8 @@
     <string name="novo">Novo</string>
     <string name="mapa">Mapa</string>
     <string name="mais_opcoes">Mais opções</string>
+    <string name="enviar">Enviar</string>
     <string name="sincronizar">Sincronizar</string>
-    <string name="provas">Provas</string>
     <string name="preferencias">Preferências</string>
     <!-- Itens do menu de conexto -->
     <string name="ligar">Ligar</string>
